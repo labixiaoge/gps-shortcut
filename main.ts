@@ -8,7 +8,7 @@
 //
 // Run: node main.ts
 
-import { mkdirSync, writeFileSync } from "node:fs";
+import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
 const OUTPUT_DIR = process.env.OUTPUT_DIR ?? "/output";
@@ -26,8 +26,15 @@ if (LINE.trim().length === 0) {
 if (LINE.includes("\n")) {
   throw new Error("entry must be a single line");
 }
+if (LINE !== LINE.trim()) {
+  throw new Error("entry must not have leading or trailing whitespace");
+}
 
+const outPath = join(OUTPUT_DIR, "entry.txt");
 mkdirSync(OUTPUT_DIR, { recursive: true });
-writeFileSync(join(OUTPUT_DIR, "entry.txt"), LINE, "utf8");
-console.log(`wrote ${chars} chars to ${join(OUTPUT_DIR, "entry.txt")}`);
+writeFileSync(outPath, LINE, "utf8");
+if (readFileSync(outPath, "utf8") !== LINE) {
+  throw new Error("entry.txt round-trip mismatch");
+}
+console.log(`wrote ${chars} chars to ${outPath}`);
 console.log(LINE);
