@@ -1,0 +1,8 @@
+{
+  "description": "The GPS Swears It Was a Shortcut \u2014 one line, the GPS's own excuse for sending the driver down the wrong road. make.fun bounty u-alven-the-gps-swears-it-was-a-shortcut-2cac21d9.",
+  "license": "MIT",
+  "main": "main.ts",
+  "name": "gps-shortcut-excuse",
+  "type": "module",
+  "version": "1.0.0"
+}
